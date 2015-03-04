@@ -9,8 +9,10 @@ public class Messages {
 	
 	public Messages(){
 		this.messages = new LinkedList<Message>();
-		
-//		this.addMessage(new Message(new MessageData("test", "test1234")));
+	}
+	
+	public List<Message> getMessages(){
+		return this.messages;
 	}
 	
 	
