@@ -12,6 +12,10 @@ public class Server {
 		this.url = url;
 		this.port = port;
 	}
+	
+	public Server(){
+		
+	}	
 
 
 	public String getUrl() {
@@ -26,6 +30,21 @@ public class Server {
 
 	public String getName() {
 		return name;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
