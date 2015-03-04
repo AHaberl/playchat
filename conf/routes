@@ -6,9 +6,19 @@
 GET     /                           controllers.Application.index()
 
 
+# Message stuff
+
 GET		/messages/get				controllers.UserController.getMessages()
 
 POST	/messages/new				controllers.UserController.newMessage()
+
+
+
+# Server stuff
+
+POST	/server/new					controllers.ServerController.newServer()
+
+GET		/server/get					controllers.ServerController.getServer()
 
 
 # Map static resources from the /public folder to the /assets URL path
