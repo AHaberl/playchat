@@ -1,5 +1,7 @@
 package controllers;
 
+import helper.HttpHelper;
+
 import java.io.IOException;
 
 import models.Message;
@@ -30,12 +32,13 @@ public class UserController extends Controller{
 	public static Result newMessage() throws JsonParseException, JsonMappingException, IOException{		
 		JsonNode json = request().body().asJson();
 				
+		System.out.println("new message" + json.toString());
 				
 		Message message = mapper.readValue(json.toString(), Message.class);
 		messages.addMessage(message);
 		
 		for(Server server : ServerController.servers){
-			
+			HttpHelper.sendMessage(server, message);
 		}	
 		
 		
