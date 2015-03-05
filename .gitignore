@@ -3,6 +3,9 @@ bin/
 /db
 .eclipse
 *.class
+.classpath
+.project
+.settings/
 /lib/
 /logs/
 /modules
