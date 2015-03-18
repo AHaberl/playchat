@@ -5,6 +5,7 @@ import helper.ServerHelper;
 
 import java.io.IOException;
 
+import models.Configuration;
 import models.Message;
 import models.Server;
 import play.libs.Json;
@@ -32,16 +33,14 @@ public class UserController extends Controller{
 	public static Result newMessage() throws JsonParseException, JsonMappingException, IOException{		
 		JsonNode json = request().body().asJson();
 		
-		String serverName = "Server1";
-		
 		System.out.println("new message" + json.toString());
 				
 		Message message = mapper.readValue(json.toString(), Message.class);
 		
 		
 		if(null == message.getUID()){
-			message.setUID(ServerHelper.generateUID(serverName));
-			message.setOrigin(serverName);
+			message.setUID(ServerHelper.generateUID());
+			message.setOrigin(Configuration.getServerName());
 			//persist message on local db
 			
 			for(Server server : ServerController.servers){
