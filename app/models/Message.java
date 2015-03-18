@@ -4,7 +4,16 @@ public class Message {
 
 	private String type;
 	private MessageData data;
+	private String UID;
 	
+	public String getUID() {
+		return UID;
+	}
+
+	public void setUID(String uID) {
+		UID = uID;
+	}
+
 	public Message(MessageData data){
 		this.data = data;
 	}
