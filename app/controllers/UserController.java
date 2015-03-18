@@ -1,6 +1,7 @@
 package controllers;
 
 import helper.HttpHelper;
+import helper.ServerHelper;
 
 import java.io.IOException;
 
@@ -30,19 +31,43 @@ public class UserController extends Controller{
 	
 	public static Result newMessage() throws JsonParseException, JsonMappingException, IOException{		
 		JsonNode json = request().body().asJson();
-				
+		
+		String serverName = "Server1";
+		
 		System.out.println("new message" + json.toString());
 				
 		Message message = mapper.readValue(json.toString(), Message.class);
-		//messages.addMessage(message);
 		
-		for(Server server : ServerController.servers){
-			HttpHelper.sendMessage(server, message);
-		}	
 		
+		if(null == message.getUID()){
+			message.setUID(ServerHelper.generateUID(serverName));
+			message.setOrigin(serverName);
+			//persist message on local db
+			
+			for(Server server : ServerController.servers){
+				HttpHelper.sendMessage(server, message);
+			}	
+		} else {
+			//check if uid is present on server -> direct early return, exit from else
+			//if yes do nothing - if no persist message
+			
+			for(Server server : ServerController.servers){
+				if(!server.getName().equals(message.getOrigin())){
+					HttpHelper.sendMessage(server, message);
+				}
+			}
+		}
 		
 		return ok();
 	}
 	
+	public static Result register(){
+		return ok();
+	}
 		
+	public static Result login(){
+		return ok();
+	}
+	
+	
 }
