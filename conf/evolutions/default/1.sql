@@ -9,6 +9,7 @@ create table message (
   created_at                date,
   type                      varchar(255),
   uid                       varchar(255),
+  origin                    varchar(255),
   constraint pk_message primary key (id))
 ;
 

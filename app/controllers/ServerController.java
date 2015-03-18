@@ -38,5 +38,7 @@ public class ServerController extends Controller{
 		return ok(json);
 	}
 	
-	
+	public static Result status(){
+		return ok();
+	}
 }
