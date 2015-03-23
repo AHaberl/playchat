@@ -17,7 +17,7 @@ public class Message {
 	private long id;
 	
 	@ManyToOne
-	private User user;
+	private User owner	;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
