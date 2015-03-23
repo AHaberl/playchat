@@ -1,9 +1,11 @@
 package helper;
 
+import models.Configuration;
+
 public class ServerHelper {
 
 	
-	public static String generateUID(String serverName){
-		return serverName;
+	public static String generateUID(){
+		return Configuration.getServerName();
 	}
 }
