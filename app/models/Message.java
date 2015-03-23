@@ -1,7 +1,27 @@
 package models;
 
+import java.sql.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
 public class Message {
 
+	@Id
+	@GeneratedValue
+	private long id;
+	
+	@ManyToOne
+	private User user;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+	
 	private String type;
 	private MessageData data;
 	private String UID;

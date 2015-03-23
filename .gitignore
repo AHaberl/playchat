@@ -17,5 +17,6 @@ test-result
 server.pid
 *.iml
 *.eml
+*.class
 /dist/
 .cache
