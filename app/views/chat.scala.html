@@ -19,17 +19,19 @@
 
 	 	#messages{
 	 		height: 70%;
-	 		width: 100%;
+	 		width: 80%;
+	 		padding-left: 30px;
+	 		padding-top: 30px;
 	 		overflow: auto;
-
 	 	}
 
-	 	#form{
+	 	#form{	
 	 		position: fixed;
-	 		margin: auto;
-	 		margin-bottom: 0px;
-	 		
+	 		background-color: red;	 		
+	 		text-align: center;
 	 		width: 100%;
+	 		height: 50px;
+
 	 	}
 
 	 	#logout{
@@ -37,24 +39,42 @@
 	 		color: black;
 	 	}
 
+	 	#message{
+	 		width: 50%;	
+
+	 	}
+
+	 	#header{
+	 		padding-left: 20px;
+	 	}
+
+	 	#send{
+	 		background-color: transparent;
+	 		color: black;
+	 		border: 1px solid black;
+	 		font-size: 2em;
+	 		margin-top: -20px;
+	 	}
+
 
 	 </style>
 </head>
 <body>
 	<div id="wrapper">
-		<h1>.chat</h1>
-		<h3 id="username"> >.hello @username</h3>
-		<a href="/user/logout" id="logout"> >.logout</a>
+		<div id="header">
+			<h1>.chat</h1>
+			<h3 id="username"> >.hello @username</h3>
+			<a href="/user/logout" id="logout"> >.logout</a>	
+		</div>
 		<hr>
 		<div id="messages">hello</div>
 
 		<div id="form">
 			<section>
 				<form method="POST">
-					<label for="message">message</label>
-					<input id="message" name="message" type="text" class="required">
-					
-					<input type="submit" value="send">
+					<textarea id="message" name="message" type="text" class="required" cols="80" rows="3">						
+					</textarea>					
+					<input type="submit" value="send" id="send">
 				</form>
 			</section>
 		</div>
