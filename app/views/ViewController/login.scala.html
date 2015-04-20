@@ -1,0 +1,56 @@
+@(loginURL : String, chatURL : String)
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+	<title>Login</title>
+	 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<h1>.chat</h1>
+	<h3>Login</h3>
+
+	<p id="message"></p>
+
+	<section>
+		<form method="POST">
+			<label for="userName">User name</label>
+			<input id="userName" name="userName" type="text" class="required">
+
+			<label for="password">Password</label>
+			<input id="password" name="password" type="text" class="required">
+			<input type="submit">
+		</form>
+	</section>
+
+
+	<script type="text/javascript">
+		$("form").on("submit", function(event){
+			event.preventDefault();
+			var user = {};
+			user.userName = document.getElementById("userName").value;
+			user.password = document.getElementById("password").value;
+			
+			//console.log(JSON.stringify(user));
+
+			$.ajax({
+				url: "localhost:9000/login",
+				async: "false",
+				data: JSON.stringify(user),
+				success: function(result){
+					document.getElementById("message").innerHTML = result;
+					console.log("ajax success");
+					window.location.href = "localhost:9000/chat";
+				},
+				error: function(result){
+					document.getElementById("message").innerHTML = result;
+					console.log("ajax error");
+
+				}
+			});	
+		});
+
+	</script>
+
+</body>
+</html>
