@@ -1,14 +1,9 @@
-import java.util.HashSet;
-import java.util.Set;
-
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
-import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.JedisCluster;
 
 public class Global extends GlobalSettings {
-	private static Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
+//	/private static Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
    // public static JedisCluster cluster;
 	
     public void onStart(Application app) {

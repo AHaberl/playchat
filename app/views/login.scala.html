@@ -1,4 +1,3 @@
-@(loginurl: String)
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +17,7 @@
 			<input id="userName" name="userName" type="text" class="required">
 
 			<label for="password">Password</label>
-			<input id="password" name="password" type="text" class="required">
+			<input id="password" name="password" type="password" class="required">
 			<input type="submit">
 		</form>
 	</section>
@@ -31,21 +30,28 @@
 			user.userName = document.getElementById("userName").value;
 			user.password = document.getElementById("password").value;
 			
-			//console.log(JSON.stringify(user));
+			
 
 			$.ajax({
-				url: "localhost:9000/login",
+				url: "/user/login",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
 				async: "false",
 				data: JSON.stringify(user),
-				success: function(result){
-					document.getElementById("message").innerHTML = result;
+				method: "POST",
+				success: function(result, status, error){
+					document.getElementById("message").innerHTML = result.message;
 					console.log("ajax success");
-					window.location.href = "localhost:9000/chat";
+					setTimeout(function(){
+						window.location.href = "/view/chat";
+					}, 800);
+					
 				},
-				error: function(result){
-					document.getElementById("message").innerHTML = result;
-					console.log("ajax error");
-
+				error: function(result, status, error){
+					//document.getElementById("message").innerHTML = result;
+					console.log(result);
+					console.log(error);
+					console.log(status);
 				}
 			});	
 		});
