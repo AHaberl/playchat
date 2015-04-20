@@ -6,6 +6,12 @@ public class ServerHelper {
 
 	
 	public static String generateUID(){
-		return Configuration.getServerName();
+		
+		String UID = "";	
+		
+		UID += Configuration.getServerName();
+		UID += System.currentTimeMillis();
+		
+		return UID;
 	}
 }
