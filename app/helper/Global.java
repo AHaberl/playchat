@@ -1,3 +1,4 @@
+package helper;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
