@@ -8,7 +8,7 @@ import java.io.IOException;
 import models.Configuration;
 import models.Message;
 import models.Server;
-import play.libs.Json;
+import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -64,8 +64,24 @@ public class UserController extends Controller{
 		return ok();
 	}
 		
-	public static Result login(){
-		return ok();
+	public static Result login() throws JsonParseException, JsonMappingException, IOException{
+		
+		JsonNode json = request().body().asJson();
+		User user = mapper.readValue(json.toString(), User.class);
+		
+		if(null == user.getPassword()){
+			return unauthorized("empty password");
+		}
+		
+		if(null == user.getUserName()){
+			return unauthorized("empty username");
+		}
+		
+		if(user.login()){
+			session("login", "true");
+		}
+		
+		return ok("welcome " + user.getUserName());
 	}
 	
 	

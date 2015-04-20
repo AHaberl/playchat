@@ -28,4 +28,27 @@ public class User {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	
+	
+	public boolean login(){
+		//TODO: check username, password
+		
+		return true;
+	}
 }
