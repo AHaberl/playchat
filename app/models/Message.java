@@ -1,7 +1,5 @@
 package models;
 
-import helper.Global;
-
 import java.sql.Date;
 
 public class Message{

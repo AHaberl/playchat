@@ -98,6 +98,12 @@ public class UserController extends Controller{
 		if(user.login()){
 			session("status", "online");
 			session("username", user.getUserName());
+
+	    	Long nextID = ServerController.cluster.incr("userid");
+	    	user.setID(nextID.toString());
+	    	
+	    	ServerController.cluster.hset("users", user.getUserName(), user.getID());
+	    	ServerController.cluster.hmset("user:"+user.getID(), UserController.convertUser(user));
 		}
 		
 		String welcome = "{\"message\" : \"welcome " + user.getUserName() + "\"}";
@@ -117,7 +123,7 @@ public class UserController extends Controller{
 		
 		 session("status", "");
 		 session("username", "");
-		
+
 		 return redirect(routes.ViewController.login());
 		
 		 }	

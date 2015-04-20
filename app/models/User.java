@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import controllers.ServerController;
+
 
 public class User {
 	private String id;
@@ -44,9 +46,14 @@ public class User {
 
 	public boolean login(){
 		//TODO: check username, password
-		
-		status = "online";
-		
+		String userid = ServerController.cluster.hget("users", this.userName);
+		if (userid == null)
+			return false;
+		String pass = ServerController.cluster.hget("user:" + userid, "password");
+		if (pass == null || !pass.equals(pass))
+			return false;
+
+		this.status = "online";
 		return true;
 	}
 	
