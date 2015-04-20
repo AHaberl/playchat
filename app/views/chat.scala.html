@@ -13,24 +13,28 @@
 		 }
 
 		 #wrapper{
-		 	height: 100%;
+		 	height: 90%;
 		 	width: 100%;
+		 	text-align: center;
 		 }
 
 	 	#messages{
-	 		height: 70%;
-	 		width: 80%;
-	 		padding-left: 30px;
+	 		height: 73%;
+	 		width: 900px;
+	 		text-align: left;
 	 		padding-top: 30px;
 	 		overflow: auto;
+	 		margin: auto;
 	 	}
 
 	 	#form{	
 	 		position: fixed;
-	 		background-color: red;	 		
+	 		background-color: transparent;	 		
 	 		text-align: center;
 	 		width: 100%;
-	 		height: 15%;
+	 		height: 50px;
+	 		bottom: 0px;
+	 		padding-bottom: 30px;
 
 	 	}
 
@@ -40,23 +44,34 @@
 	 	}
 
 	 	#message{
-	 		width: 50%;	
-
+	 		width: 900px;	
+	 		background-color: transparent;
+	 		border: 1px solid black;
+	  		text-align: left;
 	 	}
 
 	 	#header{
-	 		padding-left: 20px;
+	 		text-align: left;
 	 		height: 15%;
+	 		width: 900px;
+	 		background-color: transparent;
+	 		margin: auto;
 	 	}
 
 	 	#send{
 	 		background-color: transparent;
 	 		color: black;
 	 		border: 1px solid black;
-	 		font-size: 2em;
-	 		margin-top: -20px;
+	 		font-size: 1.5em;
+	 		position: absolute;
+	 		margin-left: 10px;
+	 		margin-top: 10px;
 	 	}
 
+	 	#author{
+	 		font-size: 8pt;
+	 		margin-top: -12px;
+	 	}
 
 	 </style>
 </head>
@@ -69,14 +84,13 @@
 		</div>
 		<hr>
 		<div id="messages">hello</div>
-
-		<div id="form">
-			<section>
-				<form method="POST">
-					<textarea id="message" name="message" type="text" class="required" cols="80" rows="3"></textarea>					
-					<input type="submit" value="send" id="send">
-				</form>
-			</section>
+		<hr>
+		<div id="form">			
+			<form method="POST">
+				<textarea id="message" name="message" type="text" class="required" cols="80" rows="3"></textarea>					
+				<input type="submit" value="send" id="send">
+			</form>			
+			<p id="author"> >>Distributed systems project by Benny Goerzig, Andreas Haberl<< </p>
 		</div>
 
 		<script type="text/javascript">
