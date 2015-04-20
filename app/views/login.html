@@ -9,6 +9,8 @@
 	<h1>.chat</h1>
 	<h3>Login</h3>
 
+	<p id="message"></p>
+
 	<section>
 		<form method="POST">
 			<label for="userName">User name</label>
@@ -35,10 +37,14 @@
 				async: "false",
 				data: JSON.stringify(user),
 				success: function(result){
+					document.getElementById("message").innerHTML = result;
 					console.log("ajax success");
+					window.location.href = "localhost:9000/chat";
 				},
 				error: function(result){
+					document.getElementById("message").innerHTML = result;
 					console.log("ajax error");
+
 				}
 			});	
 		});
