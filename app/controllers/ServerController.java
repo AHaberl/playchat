@@ -8,6 +8,7 @@ import models.Server;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import redis.clients.jedis.JedisCluster;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ServerController extends Controller{
 	
+	public static JedisCluster cluster;
 	public static List<Server> servers = new LinkedList<Server>();
 	public static ObjectMapper mapper = new ObjectMapper();
 
