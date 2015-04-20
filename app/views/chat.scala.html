@@ -79,7 +79,8 @@
 	<div id="wrapper">
 		<div id="header">
 			<h1>.chat</h1>
-			<h3 id="username"> >.hello @username</h3>
+			<h3> >.hello @username</h3>
+			<input type="hidden" id="username" value="@username">
 			<a href="/user/logout" id="logout"> >.logout</a>	
 		</div>
 		<hr>
@@ -98,7 +99,7 @@
 				event.preventDefault();
 				var messageData = {};
 
-				messageData.sender = document.getElementById("username").innerHTML;
+				messageData.sender = document.getElementById("username").value;
 				messageData.message = document.getElementById("message").value;
 				
 				var message = {};
