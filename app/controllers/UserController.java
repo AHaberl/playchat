@@ -61,9 +61,9 @@ public class UserController extends Controller{
 		
 		User user = null;
 //		User user = user from reddis: message.getData().getSender();
-		if(null == user){
-			return badRequest("sender must be valid user");
-		}
+//		if(null == user){
+//			return badRequest("sender must be valid user");
+//		}
 		
 		
 		if(null == message.getUID()){
@@ -85,7 +85,7 @@ public class UserController extends Controller{
 			}
 		}
 		
-		return ok();
+		return ok("{}");
 	}
 	
 	public static Result register(){

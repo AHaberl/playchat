@@ -18,7 +18,7 @@
 		 }
 
 	 	#messages{
-	 		height: 80%;
+	 		height: 70%;
 	 		width: 100%;
 	 		overflow: auto;
 
@@ -28,8 +28,13 @@
 	 		position: fixed;
 	 		margin: auto;
 	 		margin-bottom: 0px;
-	 	
+	 		
 	 		width: 100%;
+	 	}
+
+	 	#logout{
+	 		text-decoration: underline;
+	 		color: black;
 	 	}
 
 
@@ -38,10 +43,10 @@
 <body>
 	<div id="wrapper">
 		<h1>.chat</h1>
-		<h3 id="username">@username</h3>
-		<a href="/user/logout">logout</a>
-
-		<div id="messages">ha;;p</div>
+		<h3 id="username"> >.hello @username</h3>
+		<a href="/user/logout" id="logout"> >.logout</a>
+		<hr>
+		<div id="messages">hello</div>
 
 		<div id="form">
 			<section>
@@ -74,8 +79,8 @@
 					async: "false",
 					data: JSON.stringify(message),
 					method: "POST",
-					success: function(result, status, error){
-						document.getElementById("message").innerHTML = result.message;
+					success: function(result){
+						document.getElementById("message").value = "";
 						console.log("ajax success");						
 						
 					},
@@ -96,7 +101,7 @@
 					async: "true",					
 					method: "GET",
 					success: function(data){
-						document.getElementById("messages").innerHTML = data.data.message;
+						document.getElementById("messages").innerHTML = "<b> >." + data.data.sender + ":</b> " + data.data.message + "</br></br>";
 						console.log("ajax success");						
 						
 					},
