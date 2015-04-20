@@ -4,24 +4,35 @@
 </head>
 	<title>Login</title>
 	 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+	 <style type="text/css">
+	 	
+	 	
+	 	#wrapper{
+	 		width: 900px;
+	 		margin: auto;
+	 	}
+
+	 </style>
 </head>
 <body>
-	<h1>.chat</h1>
-	<h3>Login</h3>
+	<div id="wrapper">
+		<h1>.chat</h1>
+		<h3>Login</h3>
 
-	<p id="message"></p>
+		<!--<p id="message"></p>-->
 
-	<section>
-		<form method="POST">
-			<label for="userName">User name</label>
-			<input id="userName" name="userName" type="text" class="required">
+		<section>
+			<form method="POST">
+				<label for="userName">User name</label>
+				<input id="userName" name="userName" type="text" class="required">
 
-			<label for="password">Password</label>
-			<input id="password" name="password" type="password" class="required">
-			<input type="submit">
-		</form>
-	</section>
-
+				<label for="password">Password</label>
+				<input id="password" name="password" type="password" class="required">
+				<input type="submit">
+			</form>
+		</section>
+	</div>	
 
 	<script type="text/javascript">
 		$("form").on("submit", function(event){
@@ -40,7 +51,7 @@
 				data: JSON.stringify(user),
 				method: "POST",
 				success: function(result, status, error){
-					document.getElementById("message").innerHTML = result.message;
+					//document.getElementById("message").innerHTML = result.message;
 					console.log("ajax success");
 					setTimeout(function(){
 						window.location.href = "/view/chat";
