@@ -7,11 +7,10 @@ import java.io.IOException;
 
 import models.Configuration;
 import models.Message;
+import models.MessageData;
 import models.Server;
 import models.User;
-
-
-
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -33,8 +32,18 @@ public class UserController extends Controller{
 		
 		//EMF hier so
 		//JsonNode json = Json.toJson(messages.getMessages());
+	
+		MessageData data = new MessageData();
+		data.setMessage("testmessage");
+		data.setSender("andreas");
 		
-		return ok();
+		Message message = new Message();
+		message.setData(data);
+		message.setType("message");
+		
+		JsonNode json = Json.toJson(message);
+		
+		return ok(json.toString());
 	}
 
 	//remove when persistence is implemented

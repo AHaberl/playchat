@@ -76,8 +76,7 @@
 					method: "POST",
 					success: function(result, status, error){
 						document.getElementById("message").innerHTML = result.message;
-						console.log("ajax success");
-						
+						console.log("ajax success");						
 						
 					},
 					error: function(result, status, error){
@@ -88,6 +87,27 @@
 					}
 				});	
 			});
+
+			setInterval(function(){
+				$.ajax({
+					url: "/messages/get",
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: "true",					
+					method: "GET",
+					success: function(data){
+						document.getElementById("messages").innerHTML = data.data.message;
+						console.log("ajax success");						
+						
+					},
+					error: function(result, status, error){
+						//document.getElementById("message").innerHTML = result;
+						console.log(result);
+						console.log(error);
+						console.log(status);
+					}
+				});
+			}, 1000);
 
 		</script>
 	</div>
