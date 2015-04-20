@@ -4,13 +4,13 @@ package controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-
+import views.html.*;
 
 public class ViewController extends Controller{
 
 	
 	public static Result login(){
-		return views.html.ViewController.login.render("localhost:9000/login", "localhost:9000/chat");
+		return ok(login.render(""));
 	}
 	
 	public static Result chat(){
