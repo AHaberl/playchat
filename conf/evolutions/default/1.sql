@@ -16,6 +16,7 @@ create table message (
 create table user (
   id                        bigint auto_increment not null,
   user_name                 varchar(255),
+  status                    varchar(255),
   created_at                date,
   constraint pk_user primary key (id))
 ;
