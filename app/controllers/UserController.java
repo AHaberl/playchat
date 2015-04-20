@@ -1,5 +1,6 @@
 package controllers;
 
+import helper.Global;
 import helper.HttpHelper;
 import helper.ServerHelper;
 
@@ -7,10 +8,8 @@ import java.io.IOException;
 
 import models.Configuration;
 import models.Message;
-import models.MessageData;
 import models.Server;
 import models.User;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -32,18 +31,8 @@ public class UserController extends Controller{
 		
 		//EMF hier so
 		//JsonNode json = Json.toJson(messages.getMessages());
-	
-		MessageData data = new MessageData();
-		data.setMessage("testmessage");
-		data.setSender("andreas");
 		
-		Message message = new Message();
-		message.setData(data);
-		message.setType("message");
-		
-		JsonNode json = Json.toJson(message);
-		
-		return ok(json.toString());
+		return ok();
 	}
 
 	//remove when persistence is implemented
@@ -94,9 +83,8 @@ public class UserController extends Controller{
 		
 	public static Result login() throws JsonParseException, JsonMappingException, IOException{
 		
-		JsonNode json = request().body().asJson();		
-		User user = mapper.readValue(json.toString(), User.class);	
-		
+		JsonNode json = request().body().asJson();
+		User user = mapper.readValue(json.toString(), User.class);
 		
 		if(null == user.getPassword()){
 			return unauthorized("empty password");
@@ -111,19 +99,9 @@ public class UserController extends Controller{
 			session("username", user.getUserName());
 		}
 		
-		String welcome = "{\"message\" : \"welcome " + user.getUserName() + "\"}";
-		return ok(welcome);
+		return ok("welcome " + user.getUserName());
 	}
 	
-	
-	public static Result logout(){
-		
-		session("status", "");
-		session("username", "");
-		
-		return redirect(routes.ViewController.login());
-		
-	}
 	
 	
 	
