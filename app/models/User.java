@@ -19,6 +19,7 @@ public class User {
 	private long id;
 	
 	private String userName;
+	private String password;
 	
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
 	private List<Message> messages = new ArrayList<Message>();
