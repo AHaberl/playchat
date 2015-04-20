@@ -49,6 +49,8 @@ public class User {
 	public boolean login(){
 		//TODO: check username, password
 		
+		status = "online";
+		
 		return true;
 	}
 }

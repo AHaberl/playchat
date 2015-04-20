@@ -78,7 +78,8 @@ public class UserController extends Controller{
 		}
 		
 		if(user.login()){
-			session("login", "true");
+			session("status", "online");
+			session("username", user.getUserName());
 		}
 		
 		return ok("welcome " + user.getUserName());
