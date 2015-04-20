@@ -22,6 +22,11 @@ public class UserController extends Controller{
 	private static ObjectMapper mapper = new ObjectMapper();
 	
 	public static Result getMessages(){
+		String status = session("status");
+		
+		if(!"online".equals(status)){
+			return redirect(routes.UserController.login());
+		}
 		
 		//EMF hier so
 		//JsonNode json = Json.toJson(messages.getMessages());
