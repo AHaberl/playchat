@@ -1,16 +1,16 @@
 package controllers;
 
-import helper.HttpHelper;
-import helper.ServerHelper;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import models.Configuration;
 import models.Message;
-import models.Server;
+import models.MessageData;
 import models.User;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -29,10 +29,13 @@ public class UserController extends Controller{
 		if(!"online".equals(status)){
 			return redirect(routes.UserController.login());
 		}
+		List<Message> messages = UserController.getAllMessages();
 		
-		//EMF hier so
-		//JsonNode json = Json.toJson(messages.getMessages());
+		for(Message message: messages){
+			System.out.println(message.getData().toString());
+		}
 		
+		//TODO converting to JSON
 		return ok();
 	}
 
@@ -45,40 +48,39 @@ public class UserController extends Controller{
 				
 		Message message = mapper.readValue(json.toString(), Message.class);
 		
-		if(null == message.getData().getSender()){
+		User user = new User();
+		user.setUserName(message.getData().getSender());
+		
+		String id = ServerController.cluster.hget("users", user.getUserName());
+		if(id == null)
+			return badRequest("sender must be valid user");
+		
+		String status = session("status");
+		if("".equals(status))
+			return badRequest("you must be logged in to chat");
+		
+		if(null == message.getData().getSender())
 			return badRequest("sender shall not be empty");
-		}
 		
-		User user = null;
-//		User user = user from reddis: message.getData().getSender();
-//		if(null == user){
-//			return badRequest("sender must be valid user");
-//		}
+		if(message.getData().getMessage().equals(null) || message.getData().getMessage().equals(""))
+			return badRequest("content must not be empty");
 		
+		Long nextMessageID = ServerController.cluster.incr("messageID");
+		message.setUID(String.valueOf(nextMessageID));
+		ServerController.cluster.hmset("message:" + message.getUID(), UserController.convertMessage(message));
+		ServerController.cluster.lpush("messages", message.getUID());
 		
-		if(null == message.getUID()){
-			message.setUID(ServerHelper.generateUID());
-			message.setOrigin(Configuration.getServerName());
-			//persist message on local db
-			
-			for(Server server : ServerController.servers){
-				HttpHelper.sendMessage(server, message);
-			}	
-		} else {
-			//check if uid is present on server -> direct early return, exit from else
-			//if yes do nothing - if no persist message
-			
-			for(Server server : ServerController.servers){
-				if(!server.getName().equals(message.getOrigin())){
-					HttpHelper.sendMessage(server, message);
-				}
-			}
-		}
+		Logger.info("Läeuft");
 		
 		return ok("{}");
 	}
 	
 	public static Result register(){
+		
+		String u = "";
+		String password = "";
+		String userName = "";
+		
 		return ok();
 	}
 		
@@ -106,10 +108,8 @@ public class UserController extends Controller{
 	    	ServerController.cluster.hmset("user:"+user.getID(), UserController.convertUser(user));
 		}
 		
-		String welcome = "{\"message\" : \"welcome " + user.getUserName() + "\"}";
-		return ok(welcome);
+		return ok("welcome " + user.getUserName());
 	}
-	
 	
 	public static Map<String,String> convertUser(User user){
 		Map<String, String> map = new HashMap<String, String>();
@@ -117,6 +117,27 @@ public class UserController extends Controller{
 		map.put("password", user.getPassword());
 		map.put("status", user.getStatus());
 		return map;
+	}
+	
+	public static Map<String,String> convertMessage(Message message){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("sender", message.getData().getSender());
+		map.put("content", message.getData().getMessage());
+		return map;
+	}
+	
+	public static List<Message> getAllMessages(){
+		List<Message> messageList = new ArrayList<Message>();
+		List<String> messageRange = ServerController.cluster.lrange("messages", 0, -1);
+		for(String id: messageRange){
+			List<String> currentQuery = ServerController.cluster.hmget("message:" + id, "sender", "content");
+			Message currentMessage = new Message();
+			currentMessage.setUID(id);
+			currentMessage.setData(new MessageData(currentQuery.get(0), currentQuery.get(1)));
+			messageList.add(currentMessage);
+		}
+
+		return messageList;
 	}
 	
 	public static Result logout(){
