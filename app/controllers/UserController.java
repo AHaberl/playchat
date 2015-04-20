@@ -100,8 +100,11 @@ public class UserController extends Controller{
 			session("username", user.getUserName());
 		}
 		
-		return ok("welcome " + user.getUserName());
+		String welcome = "{\"message\" : \"welcome " + user.getUserName() + "\"}";
+		return ok(welcome);
 	}
+	
+	
 	public static Map<String,String> convertUser(User user){
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("name", user.getUserName());
