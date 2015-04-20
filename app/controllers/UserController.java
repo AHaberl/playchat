@@ -29,13 +29,24 @@ public class UserController extends Controller{
 		return ok();
 	}
 
-	
+	//remove when persistence is implemented
+	@SuppressWarnings("unused")
 	public static Result newMessage() throws JsonParseException, JsonMappingException, IOException{		
 		JsonNode json = request().body().asJson();
 		
 		System.out.println("new message" + json.toString());
 				
 		Message message = mapper.readValue(json.toString(), Message.class);
+		
+		if(null == message.getData().getSender()){
+			return badRequest("sender shall not be empty");
+		}
+		
+		User user = null;
+//		User user = user from reddis: message.getData().getSender();
+		if(null == user){
+			return badRequest("sender must be valid user");
+		}
 		
 		
 		if(null == message.getUID()){
