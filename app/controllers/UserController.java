@@ -1,6 +1,5 @@
 package controllers;
 
-import helper.Global;
 import helper.HttpHelper;
 import helper.ServerHelper;
 
@@ -102,6 +101,14 @@ public class UserController extends Controller{
 		return ok("welcome " + user.getUserName());
 	}
 	
+	public static Result logout(){
+		
+		 session("status", "");
+		 session("username", "");
+		
+		 return redirect(routes.ViewController.login());
+		
+		 }
 	
 	
 	
