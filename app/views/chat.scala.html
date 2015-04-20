@@ -1,0 +1,95 @@
+@(username: String)
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+	<title>.chat</title>
+	 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	 <style type="text/css">
+		 html,body{
+		 	height: 100%;
+		 	width: 100%;
+		 	margin: 0;
+		 }
+
+		 #wrapper{
+		 	height: 100%;
+		 	width: 100%;
+		 }
+
+	 	#messages{
+	 		height: 80%;
+	 		width: 100%;
+	 		overflow: auto;
+
+	 	}
+
+	 	#form{
+	 		position: fixed;
+	 		margin: auto;
+	 		margin-bottom: 0px;
+	 	
+	 		width: 100%;
+	 	}
+
+
+	 </style>
+</head>
+<body>
+	<div id="wrapper">
+		<h1>.chat</h1>
+		<h3 id="username">@username</h3>
+		<a href="/user/logout">logout</a>
+
+		<div id="messages">ha;;p</div>
+
+		<div id="form">
+			<section>
+				<form method="POST">
+					<label for="message">message</label>
+					<input id="message" name="message" type="text" class="required">
+					
+					<input type="submit" value="send">
+				</form>
+			</section>
+		</div>
+
+		<script type="text/javascript">
+			$("form").on("submit", function(event){
+				event.preventDefault();
+				var messageData = {};
+
+				messageData.sender = document.getElementById("username").innerHTML;
+				messageData.message = document.getElementById("message").value;
+				
+				var message = {};
+				message.data = messageData;
+				message.type = "message";
+
+
+				$.ajax({
+					url: "/messages/new",
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: "false",
+					data: JSON.stringify(message),
+					method: "POST",
+					success: function(result, status, error){
+						document.getElementById("message").innerHTML = result.message;
+						console.log("ajax success");
+						
+						
+					},
+					error: function(result, status, error){
+						//document.getElementById("message").innerHTML = result;
+						console.log(result);
+						console.log(error);
+						console.log(status);
+					}
+				});	
+			});
+
+		</script>
+	</div>
+</body>
+</html>

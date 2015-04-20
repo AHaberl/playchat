@@ -10,10 +10,16 @@ public class ViewController extends Controller{
 
 	
 	public static Result login(){
-		return ok(login.render());
+		if(null == session("status") || "".equals(session("status"))){
+			return ok(login.render());
+		}
+		return redirect(routes.ViewController.chat());
 	}
 	
 	public static Result chat(){
-		return ok();
+		if(null == session("status")  || "".equals(session("status"))){
+			return redirect(routes.ViewController.login());
+		}
+		return ok(chat.render(session("username")));
 	}
 }

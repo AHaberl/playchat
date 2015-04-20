@@ -31,11 +31,15 @@ POST	/user/login					controllers.UserController.login()
 
 POST	/user/status				controllers.ServerController.status()
 
+GET	/user/logout				controllers.UserController.logout()
+
 
 
 # View stuff
 
 GET		/view/login					controllers.ViewController.login()
+
+GET		/view/chat					controllers.ViewController.chat()
 
 
 # Map static resources from the /public folder to the /assets URL path
