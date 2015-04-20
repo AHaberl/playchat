@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class User {
-	private long id;
+	private String id;
 	
 	private String userName;
 	private String status;
@@ -48,5 +48,13 @@ public class User {
 		status = "online";
 		
 		return true;
+	}
+	
+	public String getID(){
+		return this.id;
+	}
+	
+	public void setID(String id){
+		this.id = id;
 	}
 }

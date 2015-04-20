@@ -4,6 +4,8 @@ import helper.HttpHelper;
 import helper.ServerHelper;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import models.Configuration;
 import models.Message;
@@ -100,6 +102,13 @@ public class UserController extends Controller{
 		
 		return ok("welcome " + user.getUserName());
 	}
+	public static Map<String,String> convertUser(User user){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", user.getUserName());
+		map.put("password", user.getPassword());
+		map.put("status", user.getStatus());
+		return map;
+	}
 	
 	public static Result logout(){
 		
@@ -108,8 +117,5 @@ public class UserController extends Controller{
 		
 		 return redirect(routes.ViewController.login());
 		
-		 }
-	
-	
-	
+		 }	
 }

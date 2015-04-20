@@ -1,8 +1,10 @@
 package models;
 
+import helper.Global;
+
 import java.sql.Date;
 
-public class Message {
+public class Message{
 
 	private long id;
 	
@@ -63,8 +65,5 @@ public class Message {
 	public void setData(MessageData data) {
 		this.data = data;
 	}
-	
-	
-	
 	
 }
