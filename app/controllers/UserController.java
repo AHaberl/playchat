@@ -1,6 +1,5 @@
 package controllers;
 
-import helper.Global;
 import helper.HttpHelper;
 import helper.ServerHelper;
 
@@ -52,9 +51,9 @@ public class UserController extends Controller{
 		
 		User user = null;
 //		User user = user from reddis: message.getData().getSender();
-		if(null == user){
-			return badRequest("sender must be valid user");
-		}
+//		if(null == user){
+//			return badRequest("sender must be valid user");
+//		}
 		
 		
 		if(null == message.getUID()){
@@ -76,7 +75,7 @@ public class UserController extends Controller{
 			}
 		}
 		
-		return ok();
+		return ok("{}");
 	}
 	
 	public static Result register(){
@@ -103,7 +102,6 @@ public class UserController extends Controller{
 		
 		return ok("welcome " + user.getUserName());
 	}
-	
 	public static Map<String,String> convertUser(User user){
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("name", user.getUserName());
@@ -112,7 +110,12 @@ public class UserController extends Controller{
 		return map;
 	}
 	
-	
-	
-	
+	public static Result logout(){
+		
+		 session("status", "");
+		 session("username", "");
+		
+		 return redirect(routes.ViewController.login());
+		
+		 }	
 }
