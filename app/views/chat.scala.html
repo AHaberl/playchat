@@ -136,9 +136,11 @@
 					async: "true",					
 					method: "GET",
 					success: function(data){
-						document.getElementById("messages").innerHTML = "<b> >." + data.data.sender + ":</b> " + data.data.message + "</br></br>";
-						console.log("ajax success");						
-						
+						console.log("ajax success");												
+						data.forEach(function(entry){
+							document.getElementById("messages").innerHTML += "<b> >." + entry.data.sender + ":</b> " + entry.data.message + "</br></br>";
+							
+						});						
 					},
 					error: function(result, status, error){
 						//document.getElementById("message").innerHTML = result;
