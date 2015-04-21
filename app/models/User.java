@@ -43,7 +43,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	public String getID(){
+		return this.id;
+	}
+	
+	public void setID(String id){
+		this.id = id;
+	}
+	
 	public boolean login(){
 		//TODO: check username, password
 		String userid = ServerController.cluster.hget("users", this.userName);
@@ -55,13 +63,5 @@ public class User {
 
 		this.status = "online";
 		return true;
-	}
-	
-	public String getID(){
-		return this.id;
-	}
-	
-	public void setID(String id){
-		this.id = id;
 	}
 }
