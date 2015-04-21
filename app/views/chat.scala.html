@@ -95,6 +95,15 @@
 		</div>
 
 		<script type="text/javascript">
+
+			$('#message').on('keyup', function(e) {
+   				if (e.which == 13 && ! e.shiftKey) {
+        			$(this.form).submit();
+        			return false;
+    			}
+			});
+
+
 			$("form").on("submit", function(event){
 				event.preventDefault();
 				var messageData = {};
