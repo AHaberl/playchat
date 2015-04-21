@@ -142,9 +142,7 @@ public class UserController extends Controller{
 	
 	public static Result logout(){
 		
-		 session("status", "");
-		 session("username", "");
-
+		 session().destroy();
 		 return redirect(routes.ViewController.login());
 		
 		 }	
