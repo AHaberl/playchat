@@ -13,17 +13,12 @@
 	 		margin: auto;
 	 	}
 
-	 	#register{
-	 		color: black;
-	 		text-decoration: underline;
-	 	}
-
 	 </style>
 </head>
 <body>
 	<div id="wrapper">
 		<h1>.chat</h1>
-		<h3>Login</h3>
+		<h3>Register</h3>
 
 		<!--<p id="message"></p>-->
 
@@ -34,10 +29,9 @@
 
 				<label for="password">Password</label>
 				<input id="password" name="password" type="password" class="required">
-				<input type="submit" value="login">
+				<input type="submit" value="register">
 			</form>
-		</section><br><br>
-		<a href="/view/register" id="register">register</a>
+		</section>
 	</div>	
 
 	<script type="text/javascript">
@@ -50,7 +44,7 @@
 			
 
 			$.ajax({
-				url: "/user/login",
+				url: "/user/register",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				async: "false",
