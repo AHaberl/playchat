@@ -22,4 +22,11 @@ public class ViewController extends Controller{
 		}
 		return ok(chat.render(session("username")));
 	}
+	
+	public static Result register(){
+		if(null == session("status") || "".equals(session("status"))){
+			return ok(login.render());
+		}
+		return redirect(routes.ViewController.chat());
+	}
 }
