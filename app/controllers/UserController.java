@@ -36,7 +36,9 @@ public class UserController extends Controller{
 		}
 		
 		//TODO converting to JSON
-		return ok();
+		JsonNode json = Json.toJson(messages);
+
+		return ok(json.toString);
 	}
 
 	//remove when persistence is implemented
