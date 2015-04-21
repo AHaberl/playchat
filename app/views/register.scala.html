@@ -26,9 +26,13 @@
 			<form method="POST">
 				<label for="userName">User name</label>
 				<input id="userName" name="userName" type="text" class="required">
-
+				<br>
 				<label for="password">Password</label>
 				<input id="password" name="password" type="password" class="required">
+				<br>
+				<label for="password">confirm Password</label>
+				<input id="password2" name="password2" type="password" class="required">
+				<br>
 				<input type="submit" value="register">
 			</form>
 		</section>
@@ -41,30 +45,35 @@
 			user.userName = document.getElementById("userName").value;
 			user.password = document.getElementById("password").value;
 			
+			var password2 = document.getElementById("password2").value;
 			
+			if(user.password.equals(password2)){
 
-			$.ajax({
-				url: "/user/register",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				async: "false",
-				data: JSON.stringify(user),
-				method: "POST",
-				success: function(result, status, error){
-					//document.getElementById("message").innerHTML = result.message;
-					console.log("ajax success");
-					setTimeout(function(){
-						window.location.href = "/view/chat";
-					}, 800);
-					
-				},
-				error: function(result, status, error){
-					//document.getElementById("message").innerHTML = result;
-					console.log(result);
-					console.log(error);
-					console.log(status);
-				}
-			});	
+				$.ajax({
+					url: "/user/register",
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					async: "false",
+					data: JSON.stringify(user),
+					method: "POST",
+					success: function(result, status, error){
+						//document.getElementById("message").innerHTML = result.message;
+						console.log("ajax success");
+						setTimeout(function(){
+							window.location.href = "/view/chat";
+						}, 800);
+						
+					},
+					error: function(result, status, error){
+						//document.getElementById("message").innerHTML = result;
+						console.log(result);
+						console.log(error);
+						console.log(status);
+					}
+				});
+			} else{
+				alert("passwords need to be equal");
+			}		
 		});
 
 	</script>
