@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ServerController;
+import controllers.UserController;
 
 
 public class User {
@@ -18,6 +19,17 @@ public class User {
 	private List<Message> messages = new ArrayList<Message>();
 	
 	private Date createdAt;
+	
+	public User(){
+		super();
+	}
+	
+	public User(String name, String pass){
+		this.userName = name;
+		this.password = pass;
+		this.setID(ServerController.cluster.incr("userid").toString());
+		this.setStatus("");
+	}
 
 	public String getStatus() {
 		return status;

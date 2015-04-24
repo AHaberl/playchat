@@ -22,14 +22,9 @@ public class Global extends GlobalSettings {
     	jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30003));
     	ServerController.cluster = new JedisCluster(jedisClusterNodes);
     	
-    	User andi = new User();
-    	andi.setUserName("Andi");
-    	andi.setID("1");
-    	andi.setPassword("supersafe");
-    	andi.setStatus("");
-    	
-    	ServerController.cluster.hset("users", andi.getUserName(), andi.getID());
-    	ServerController.cluster.hmset("user:" + 1, UserController.convertUser(andi));
+    	UserController.registerUser(new User("Mario", "supersafe"));
+    	UserController.registerUser(new User("Bowser", "supersafe"));
+    	UserController.registerUser(new User("Peach", "supersafe"));
     	
     	System.out.println("init");
     }

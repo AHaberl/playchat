@@ -13,8 +13,10 @@ import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.defaultpages.error;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,13 +77,18 @@ public class UserController extends Controller{
 		return ok("{}");
 	}
 	
-	public static Result register(){
+	public static Result register() throws JsonParseException, JsonMappingException, IOException{
+		JsonNode json = request().body().asJson();
+		User user = mapper.readValue(json.toString(), User.class);
+		user.setID(ServerController.cluster.incr("userid").toString());
+		user.setStatus("");
 		
-		String u = "";
-		String password = "";
-		String userName = "";
-		
-		return ok();
+		String available = ServerController.cluster.hget("users", user.getUserName());
+		if("".equals(available) || null == available){
+	    	registerUser(user);
+			return ok();
+		}		
+		return internalServerError();
 	}
 		
 	public static Result login() throws JsonParseException, JsonMappingException, IOException{
@@ -105,7 +112,7 @@ public class UserController extends Controller{
 	    	user.setID(nextID.toString());
 	    	
 	    	ServerController.cluster.hset("users", user.getUserName(), user.getID());
-	    	ServerController.cluster.hmset("user:"+user.getID(), UserController.convertUser(user));
+	    	ServerController.cluster.hmset("user:" + user.getID(), UserController.convertUser(user));
 		}
 		
 		return ok();
@@ -138,6 +145,11 @@ public class UserController extends Controller{
 		}
 
 		return messageList;
+	}
+	
+	public static void registerUser(User user){    	
+    	ServerController.cluster.hset("users", user.getUserName(), user.getID());
+    	ServerController.cluster.hmset("user:" + user.getID(), UserController.convertUser(user));
 	}
 	
 	public static Result logout(){
