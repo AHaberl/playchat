@@ -108,7 +108,7 @@ public class UserController extends Controller{
 	    	ServerController.cluster.hmset("user:"+user.getID(), UserController.convertUser(user));
 		}
 		
-		return ok("welcome " + user.getUserName());
+		return ok();
 	}
 	
 	public static Map<String,String> convertUser(User user){
