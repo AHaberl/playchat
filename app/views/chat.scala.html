@@ -146,6 +146,8 @@
 					method: "GET",
 					success: function(data){
 						console.log("ajax success");												
+						document.getElementById("messages").innerHTML = "";
+						data.reverse();
 						data.forEach(function(entry){
 							document.getElementById("messages").innerHTML += "<b> >." + entry.data.sender + ":</b> " + entry.data.message + "</br></br>";
 							

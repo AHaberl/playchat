@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import models.Message;
 import models.MessageData;
 import models.User;
 import play.Logger;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -38,7 +38,7 @@ public class UserController extends Controller{
 		//TODO converting to JSON
 		JsonNode json = Json.toJson(messages);
 
-		return ok(json.toString);
+		return ok(json.toString());
 	}
 
 	//remove when persistence is implemented
@@ -71,8 +71,6 @@ public class UserController extends Controller{
 		message.setUID(String.valueOf(nextMessageID));
 		ServerController.cluster.hmset("message:" + message.getUID(), UserController.convertMessage(message));
 		ServerController.cluster.lpush("messages", message.getUID());
-		
-		Logger.info("Läeuft");
 		
 		return ok("{}");
 	}
@@ -144,7 +142,7 @@ public class UserController extends Controller{
 	
 	public static Result logout(){
 		
-		 session().destroy();
+		 session().clear();
 		 return redirect(routes.ViewController.login());
 		
 		 }	

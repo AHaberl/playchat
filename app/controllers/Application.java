@@ -7,8 +7,6 @@ import play.mvc.Result;
 public class Application extends Controller {
 
     public static Result index() {
-    	String id = "nulle";
-    	id = ServerController.cluster.hget("users", "Andi");
-        return ok(id);
+        return redirect(routes.ViewController.login());
     }
 }
