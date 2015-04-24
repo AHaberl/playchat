@@ -25,7 +25,7 @@ public class ViewController extends Controller{
 	
 	public static Result register(){
 		if(null == session("status") || "".equals(session("status"))){
-			return ok(login.render());
+			return ok(register.render());
 		}
 		return redirect(routes.ViewController.chat());
 	}

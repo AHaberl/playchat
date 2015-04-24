@@ -79,16 +79,12 @@ public class UserController extends Controller{
 	
 	public static Result register() throws JsonParseException, JsonMappingException, IOException{
 		JsonNode json = request().body().asJson();
+		System.out.println("Register");
 		User user = mapper.readValue(json.toString(), User.class);
 		user.setID(ServerController.cluster.incr("userid").toString());
 		user.setStatus("");
-		
-		String available = ServerController.cluster.hget("users", user.getUserName());
-		if("".equals(available) || null == available){
-	    	registerUser(user);
-			return ok();
-		}		
-		return internalServerError();
+		registerUser(user);
+		return ok();
 	}
 		
 	public static Result login() throws JsonParseException, JsonMappingException, IOException{
@@ -147,7 +143,11 @@ public class UserController extends Controller{
 		return messageList;
 	}
 	
-	public static void registerUser(User user){    	
+	public static void registerUser(User user){   
+		System.out.println("REG");
+		System.out.println(user.getID());
+		System.out.println(user.getPassword());
+		System.out.println(user.getUserName());
     	ServerController.cluster.hset("users", user.getUserName(), user.getID());
     	ServerController.cluster.hmset("user:" + user.getID(), UserController.convertUser(user));
 	}

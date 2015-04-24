@@ -47,7 +47,7 @@
 			
 			var password2 = document.getElementById("password2").value;
 			
-			if(user.password.equals(password2)){
+			
 
 				$.ajax({
 					url: "/user/register",
@@ -71,9 +71,7 @@
 						console.log(status);
 					}
 				});
-			} else{
-				alert("passwords need to be equal");
-			}		
+					
 		});
 
 	</script>
